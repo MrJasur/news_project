@@ -6,63 +6,29 @@
     <div class="row">
       <div class="col-lg-8 col-md-8 col-sm-8">
         <div class="slick_slider">
-          <div class="single_iteam"> <a href="{% url 'singlepage' %}"> <img src="{% static 'images/slider_img4.jpg' %}" alt=""></a>
-            <div class="slider_article">
-              <h2><a class="slider_tittle" href="{% url 'singlepage' %}">Fusce eu nulla semper porttitor felis sit amet</a></h2>
-              <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui...</p>
-            </div>
-          </div>
-          <div class="single_iteam"> <a href="{% url 'singlepage' %}"> <img src="{% static 'images/slider_img2.jpg' %}" alt=""></a>
-            <div class="slider_article">
-              <h2><a class="slider_tittle" href="{% url 'singlepage' %}">Fusce eu nulla semper porttitor felis sit amet</a></h2>
-              <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui...</p>
-            </div>
-          </div>
-          <div class="single_iteam"> <a href="{% url 'singlepage' %}"> <img src="{% static 'images/slider_img3.jpg' %}" alt=""></a>
-            <div class="slider_article">
-              <h2><a class="slider_tittle" href="{% url 'singlepage' %}">Fusce eu nulla semper porttitor felis sit amet</a></h2>
-              <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui...</p>
-            </div>
-          </div>
-          <div class="single_iteam"> <a href="{% url 'singlepage' %}"> <img src="{% static 'images/slider_img1.jpg' %}" alt=""></a>
-            <div class="slider_article">
-              <h2><a class="slider_tittle" href="{% url 'singlepage' %}">Fusce eu nulla semper porttitor felis sit amet</a></h2>
-              <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui...</p>
-            </div>
-          </div>
+            {% for news_list in news %}
+              <div class="single_iteam"> <a href="{% url 'news_detail' news_list.id %}"> <img src="{{news_list.image.url}}" alt=""></a>
+                <div class="slider_article">
+                  <h2><a class="slider_tittle" href="{% url 'news_detail' news_list.id %}">{{ news_list.title | truncatewords:5 }}</a></h2>
+                  <p>{{ news_list.title }}</p>
+                </div>
+              </div>
+            {% endfor %}
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4">
         <div class="latest_post">
-          <h2><span>Latest post</span></h2>
+          <h2><span>So'ngi yangiliklar</span></h2>
           <div class="latest_post_container">
             <div id="prev-button"><i class="fa fa-chevron-up"></i></div>
             <ul class="latest_postnav">
+                {% for news_list in news %}
               <li>
-                <div class="media"> <a href="{%url 'singlepage'%}" class="media-left"> <img alt="" src="{% static 'images/post_img1.jpg' %}"> </a>
-                  <div class="media-body"> <a href="{%url 'singlepage'%}" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
+                <div class="media"> <a href="{%url 'news_detail' news_list.pk%}" class="media-left"> <img alt="" src="{{ news_list.image.url}}"> </a>
+                  <div class="media-body"> <a href="{%url 'news_detail' news_list.pk%}" class="catg_title"> {{ news_list.title }}</a> </div>
                 </div>
               </li>
-              <li>
-                <div class="media"> <a href="{%url 'singlepage'%}" class="media-left"> <img alt="" src="{% static 'images/post_img1.jpg' %}"> </a>
-                  <div class="media-body"> <a href="{%url 'singlepage'%}" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                </div>
-              </li>
-              <li>
-                <div class="media"> <a href="{%url 'singlepage'%}" class="media-left"> <img alt="" src="{% static 'images/post_img1.jpg' %}"> </a>
-                  <div class="media-body"> <a href="{%url 'singlepage'%}" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-                </div>
-              </li>
-              <li>
-                <div class="media"> <a href="{%url 'singlepage'%}" class="media-left"> <img alt="" src="{% static 'images/post_img1.jpg' %}"> </a>
-                  <div class="media-body"> <a href="{%url 'singlepage'%}" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-                </div>
-              </li>
-              <li>
-                <div class="media"> <a href="{%url 'singlepage'%}" class="media-left"> <img alt="" src="{% static 'images/post_img1.jpg' %}"> </a>
-                  <div class="media-body"> <a href="{%url 'singlepage'%}" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                </div>
-              </li>
+                {% endfor %}
             </ul>
             <div id="next-button"><i class="fa  fa-chevron-down"></i></div>
           </div>
@@ -75,39 +41,28 @@
       <div class="col-lg-8 col-md-8 col-sm-8">
         <div class="left_content">
           <div class="single_post_content">
-            <h2><span>Business</span></h2>
+            <h2><span>Mahalliy</span></h2>
             <div class="single_post_content_left">
               <ul class="business_catgnav  wow fadeInDown">
+                  {% for local_one in local_one %}
                 <li>
-                  <figure class="bsbig_fig"> <a href="{%url 'singlepage'%}" class="featured_img"> <img alt="" src="{% static 'images/featured_img1.jpg' %}"> <span class="overlay"></span> </a>
-                    <figcaption> <a href="{%url 'singlepage'%}">Proin rhoncus consequat nisl eu ornare mauris</a> </figcaption>
-                    <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
+                  <figure class="bsbig_fig"> <a href="{%url 'news_detail' local_one.pk%}" class="featured_img"> <img alt="" src="{{ local_one.image.url }}"> <span class="overlay"></span> </a>
+                    <figcaption> <a href="{%url 'news_detail' local_one.pk%}">{{ local_one.title | truncatewords:5}}</a> </figcaption>
+                    <p>{{ local_one.title }}</p>
                   </figure>
                 </li>
+                  {% endfor %}
               </ul>
             </div>
             <div class="single_post_content_right">
               <ul class="spost_nav">
-                <li>
-                  <div class="media wow fadeInDown"> <a href="{%url 'singlepage'%}" class="media-left"> <img alt="" src="{% static 'images/post_img1.jpg' %}"> </a>
-                    <div class="media-body"> <a href="{%url 'singlepage'%}" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="media wow fadeInDown"> <a href="{%url 'singlepage'%}" class="media-left"> <img alt="" src="{% static 'images/post_img2.jpg' %}"> </a>
-                    <div class="media-body"> <a href="{%url 'singlepage'%}" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="media wow fadeInDown"> <a href="{%url 'singlepage'%}" class="media-left"> <img alt="" src="{% static 'images/post_img1.jpg' %}"> </a>
-                    <div class="media-body"> <a href="{%url 'singlepage'%}" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="media wow fadeInDown"> <a href="{%url 'singlepage'%}" class="media-left"> <img alt="" src="{% static 'images/post_img2.jpg' %}"> </a>
-                    <div class="media-body"> <a href="{%url 'singlepage'%}" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-                  </div>
-                </li>
+                  {% for local_news in local_news %}
+                    <li>
+                      <div class="media wow fadeInDown"> <a href="{%url 'news_detail' local_news.pk%}" class="media-left"> <img alt="" src="{{ local_news.image.url }}"> </a>
+                        <div class="media-body"> <a href="{%url 'news_detail' local_news.pk%}" class="catg_title"> {{ local_news.title }}</a> </div>
+                      </div>
+                    </li>
+                  {% endfor %}
               </ul>
             </div>
           </div>
@@ -260,7 +215,7 @@
       <div class="col-lg-4 col-md-4 col-sm-4">
         <aside class="right_content">
           <div class="single_sidebar">
-            <h2><span>Popular Post</span></h2>
+            <h2><span>Ommabop</span></h2>
             <ul class="spost_nav">
               <li>
                 <div class="media wow fadeInDown"> <a href="{%url 'singlepage'%}" class="media-left"> <img alt="" src="{% static 'images/post_img1.jpg' %}"> </a>
@@ -293,13 +248,9 @@
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane active" id="category">
                 <ul>
-                  <li class="cat-item"><a href="#">Sports</a></li>
-                  <li class="cat-item"><a href="#">Fashion</a></li>
-                  <li class="cat-item"><a href="#">Business</a></li>
-                  <li class="cat-item"><a href="#">Technology</a></li>
-                  <li class="cat-item"><a href="#">Games</a></li>
-                  <li class="cat-item"><a href="#">Life &amp; Style</a></li>
-                  <li class="cat-item"><a href="#">Photography</a></li>
+                    {% for category in categories %}
+                        <li class="cat-item"><a href="#">{{category.name | capfirst}}</a></li>
+                    {% endfor %}
                 </ul>
               </div>
               <div role="tabpanel" class="tab-pane" id="video">
