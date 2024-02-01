@@ -21,10 +21,19 @@ def news_detail(request, id):
 
 def homePageView(request):
     news = News.objects.all().order_by('-published_time')[:6]
-    local_one = News.objects.all().filter(category__name='milliy').order_by("-published_time")[:1]
-    local_news = News.objects.all().filter(category__name='milliy').order_by("-published_time")[1:6]
+    local_one = News.objects.all().filter(category__name='mahalliy').order_by("-published_time")[:1]
+    local_news = News.objects.all().filter(category__name='mahalliy').order_by("-published_time")[1:6]
+    foreign_news = News.objects.all().filter(category__name='xorij').order_by("-published_time")
+    sport_news = News.objects.all().filter(category__name='sport').order_by("-published_time")
+    technology_news = News.objects.all().filter(category__name='texnologiya').order_by("-published_time")
     categories = Category.objects.all()
-    context = {'news': news, 'categories': categories, 'local_news': local_news, 'local_one': local_one}
+    context = {'news': news,
+               'categories': categories,
+               'local_news': local_news,
+               'local_one': local_one,
+               'foreign_news': foreign_news,
+               'sport_news': sport_news,
+               'technology_news': technology_news}
 
     return render(request, 'news/index.html', context=context)
 
